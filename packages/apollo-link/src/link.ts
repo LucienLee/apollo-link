@@ -115,18 +115,18 @@ export class ApolloLink {
     return concat(this, next);
   }
 
-  public request(
+  public request<TData>(
     operation: Operation,
     forward?: NextLink,
-  ): Observable<FetchResult> | null {
+  ): Observable<FetchResult<TData>> | null {
     throw new InvariantError('request is not implemented');
   }
 }
 
-export function execute(
+export function execute<TData>(
   link: ApolloLink,
   operation: GraphQLRequest,
-): Observable<FetchResult> {
+): Observable<FetchResult<TData>> {
   return (
     link.request(
       createOperation(
